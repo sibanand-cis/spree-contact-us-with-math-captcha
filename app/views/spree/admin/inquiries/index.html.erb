@@ -4,27 +4,32 @@
 <table class="index">
     <thead>
     <tr>
-        <%= hook :admin_inquiries_index_headers do %>
-            <th><%= sort_link @search, :email, t("inquiry") %></th>
-            <th>
-                <%= hook :admin_inquiries_index_header_actions %>
-            </th>
-        <% end %>
+      <div data-hook="admin_inquiries_index_headers">
+        <th><%#= sort_link [:spree_contact_us, :admin, @search], :email, t("inquiry") %></th>
+        <th>
+          <%#= hook :admin_inquiries_index_header_actions %>
+          <div data-hook="admin_inquiries_index_header_actions"></div>
+        </th>
+      </div>
     </tr>
     </thead>
     <tbody>
     <% @inquiries.each do |inquiry| %>
         <tr id="<%= dom_id inquiry %>">
-            <%- locals = {:inquiry => inquiry} %>
-            <%= hook :admin_inquiries_index_rows, locals do %>
-                <td width="350px"><%= link_to inquiry.email, object_url(inquiry) %></td>
-            <% end %>
-            <td>
-                <%= hook :admin_inquiries_index_row_actions, locals do %>
-                    <%= link_to t(:display), object_url(inquiry) %> &nbsp;
-                    <%= link_to_delete inquiry %>
-                <% end %>
-            </td>
+          <%- locals = {:inquiry => inquiry} %>
+          <div data-hook="admin_inquiries_index_rows">
+          <%#= hook :admin_inquiries_index_rows, locals do %>
+            <td width="350px"><%= link_to inquiry.email, object_url(inquiry) %></td>
+          <%# end %>
+          </div>
+          <td>
+            <div data-hook="admin_inquiries_index_row_actions">
+            <%#= hook :admin_inquiries_index_row_actions, locals do %>
+                <%= link_to t(:display), object_url(inquiry) %> &nbsp;
+                <%= link_to_delete inquiry %>
+            <%# end %>
+            </div>
+          </td>
         </tr>
     <% end %>
     </tbody>
@@ -38,15 +43,19 @@
         <h3><%= t(:search) %></h3>
         <%= form_for(@search ,:url => admin_inquiries_path,:method => :get) do |f| %>
             <%- locals = {:f => f} %>
-            <%= hook :admin_inquiries_index_search, locals do %>
+            <div data-hook="admin_inquiries_index_search">
+            <%#= hook :admin_inquiries_index_search, locals do %>
                 <p>
                     <%= t("email") %><br/>
-                    <%= f.text_field :email_contains, :size=>18 %>
+                    <%= f.text_field :email_cont, :size=>18 %>
                 </p>
-            <% end %>
-            <%= hook :admin_inquiries_index_search_buttons, locals do %>
-                <p><%= button t("search") %></p>
-            <% end %>
+            <%# end %>
+            </div>
+            <%#= hook :admin_inquiries_index_search_buttons, locals do %>
+            <div data-hook="admin_inquiries_index_search_buttons">
+              <p><%= button t("search") %></p>
+            </div>
+            <%# end %>
         <% end %>
     </div>
 <% end %>

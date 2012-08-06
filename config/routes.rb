@@ -1,4 +1,4 @@
-Spree::Core::Engine.routes.prepend do
+Spree::Core::Engine.routes.append do
   match '/contact-us' => 'inquiries#index', :as => :contact
 
   resources :inquiries
