@@ -1,5 +1,6 @@
 class Spree::Inquiry < ActiveRecord::Base
   has_captcha
+  attr_accessible :name, :email, :inquiry_type, :order_no, :message, :captcha_solution, :captcha_secret
   validates :name ,:presence => true
   validates :email ,:presence => true
   validates :message ,:presence => true
